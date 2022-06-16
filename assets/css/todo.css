@@ -1,0 +1,118 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap");
+
+.todoApp h1 {
+  font-size: 3rem;
+  text-align: center;
+  color: #f87171;
+  text-shadow: 0 2px #f9f9f9;
+}
+.todoApp h3 {
+  font-size: 2rem;
+  text-align: left;
+  color: #f87171;
+  text-shadow: 0 2px #f9f9f9;
+}
+
+.todoApp {
+  background: #fecaca;
+  margin-top: 10rem;
+  width: 400px;
+  border: 0.1px solid lightgray;
+  border-radius: 5px;
+  padding: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  box-shadow: 0 0px 2px lightgray;
+}
+.todoApp-tools {
+  height: 50px;
+}
+
+.todoApp-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.todoList {
+  height: 400px;
+  overflow-y: scroll;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0.5rem;
+}
+.todoList::-webkit-scrollbar {
+  display: none;
+}
+.todo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background: #f87171;
+  color: #fef2f2;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: 0.1px solid #f87171;
+  border-radius: 5px;
+}
+.todo:not(.completed) {
+  order: 2;
+  animation: undone 0.5s;
+}
+.todo.completed {
+  order: 3;
+  animation: done 0.5s;
+}
+.todo + .todo {
+  margin-top: 0.5rem;
+}
+.todo-item {
+  width: 100%;
+}
+.completed {
+  text-decoration: line-through;
+  opacity: 30%;
+}
+.todoApp form input {
+  border: none;
+  outline: none;
+  background: #f871718d;
+  width: 100%;
+  padding: 1rem;
+  border: 0.1px solid lightgray;
+  border-radius: 5px;
+  font-size: 16px;
+  letter-spacing: 0.075rem;
+  margin-top: 1rem;
+}
+.done {
+  order: 3;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+@keyframes done {
+  0% {
+    opacity: 0;
+    background-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(20px);
+  }
+  50% {
+    opacity: 1;
+    background-color: rgba(255, 255, 255, 0.4);
+  }
+}
+
+@keyframes undone {
+  0% {
+    opacity: 0;
+    background-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-20px);
+  }
+  50% {
+    opacity: 1;
+    background-color: rgba(255, 255, 255, 0.4);
+  }
+}
