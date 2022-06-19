@@ -1,209 +1,220 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Music Player</title>
+    <!-- css > custom style -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/todo.css" />
+    <link rel="stylesheet" href="assets/css/widget.css" />
+    <link rel="stylesheet" href="assets/css/scrum.css" />
+    <link rel="stylesheet" href="assets/css/countdown.css" />
+    <link rel="shortcut icon" href="#" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <script
+      src="https://kit.fontawesome.com/80ea5533be.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Music Player</title>
-  <!-- css > custom style -->
-  <link rel="stylesheet" href="assets/css/style.css" />
-  <link rel="stylesheet" href="assets/css/todo.css" />
-  <link rel="stylesheet" href="assets/css/widget.css" />
-  <link rel="stylesheet" href="assets/css/countdown.css" />
-  <link rel="shortcut icon" href="#" />
-  <link rel="shortcut icon" href="/favicon.ico" />
-  <script src="https://kit.fontawesome.com/80ea5533be.js" crossorigin="anonymous"></script>
-</head>
-
-<body>
-
-  <div class="desk">
-    <div class="desk-top">
-      <div class="wrapper">
-        <div class="player">
-          <div class="player__top">
-            <div class="player-cover">
-              <div class="player-cover__item" style="
+  <body>
+    <div class="desk">
+      <div class="desk-top">
+        <div class="wrapper">
+          <div class="player">
+            <div class="player__top">
+              <div class="player-cover">
+                <div
+                  class="player-cover__item"
+                  style="
                     background-image: url('https://cdn.pixabay.com/photo/2012/04/14/14/32/skull-34133_960_720.png');
-                  ">
-                <div class="cd-inner"></div>
+                  "
+                >
+                  <div class="cd-inner"></div>
+                </div>
+              </div>
+            </div>
+            <div class="progress" ref="progress">
+              <div class="player-bar">
+                <input
+                  id="audioRange"
+                  type="range"
+                  value="0"
+                  step="1"
+                  min="0"
+                  max="100"
+                />
+              </div>
+              <div class="buttons">
+                <button class="audio-controll-button" id="backward">
+                  <i class="fa-solid fa-backward-step"></i>
+                </button>
+                <button class="audio-controll-button" id="play">
+                  <i class="fa fa-play"></i>
+                  <i class="fa fa-pause"></i>
+                </button>
+                <button class="audio-controll-button" id="next">
+                  <i class="fa-solid fa-forward-step"></i>
+                </button>
+              </div>
+              <div class="buttons">
+                <button class="audio-controll-button" id="randomTrack">
+                  <i class="fa-solid fa-random"></i>
+                </button>
+                <button class="audio-controll-button" id="favTrack">
+                  <i class="fa fa-heart"></i>
+                </button>
+
+                <button class="audio-controll-button" id="repeatTrack">
+                  <i class="fa-solid fa-repeat"></i>
+                </button>
+              </div>
+              <audio id="audio" src="assets/audio/5.mp3"></audio>
+              <div class="album-info" v-if="currentTrack">
+                <div class="album-info__name"></div>
+                <div class="album-info__track"></div>
               </div>
             </div>
           </div>
-          <div class="progress" ref="progress">
-            <div class="player-bar">
-              <input id="audioRange" type="range" value="0" step="1" min="0" max="100" />
-            </div>
-            <div class="buttons">
-              <button class="audio-controll-button" id="backward">
-                <i class="fa-solid fa-backward-step"></i>
-              </button>
-              <button class="audio-controll-button" id="play">
-                <i class="fa fa-play"></i>
-                <i class="fa fa-pause"></i>
-              </button>
-              <button class="audio-controll-button" id="next">
-                <i class="fa-solid fa-forward-step"></i>
-              </button>
-            </div>
-            <div class="buttons">
-              <button class="audio-controll-button" id="randomTrack">
-                <i class="fa-solid fa-random"></i>
-              </button>
-              <button class="audio-controll-button" id="favTrack">
-                <i class="fa fa-heart"></i>
-              </button>
-
-              <button class="audio-controll-button" id="repeatTrack">
-                <i class="fa-solid fa-repeat"></i>
-              </button>
-            </div>
-            <audio id="audio" src="assets/audio/5.mp3"></audio>
-            <div class="album-info" v-if="currentTrack">
-              <div class="album-info__name"></div>
-              <div class="album-info__track"></div>
-            </div>
+          <div class="dashboard">
+            <div class="playlist"></div>
           </div>
         </div>
-        <div class="dashboard">
-          <div class="playlist"></div>
+        <div class="desk-right">
+          <div class="desk-right-top">
+            <div class="widget widget-medium">Clock</div>
+            <div class="widget widget-medium"></div>
+            <div class="widget widget-medium">
+              <div id="timer">
+                <div id="time">
+                  <span id="minutes">25</span>
+                  <span id="colon">:</span>
+                  <span id="seconds">00</span>
+                </div>
+                <div id="filler"></div>
+              </div>
+              <div id="timer-buttons">
+                <div class="timer-button" id="start">Start</div>
+                <div class="timer-button" id="pause">Pause</div>
+                <div class="timer-button" id="reset">Reset</div>
+              </div>
+            </div>
+          </div>
+          <div class="desk-right-center">
+            <div class="todoApp">
+              <form
+                id="form-1"
+                onsubmit="addNewTodo()"
+                class="todoApp-container"
+              >
+                <div class="todoList"></div>
+                <input id="inputText" type="text" placeholder="Todo..." />
+              </form>
+            </div>
+          </div>
+          <div class="desk-right-bottom"></div>
         </div>
       </div>
-      <div class="desk-right">
-        <div class="desk-right-top">
-          <div class="widget widget-medium">Clock</div>
-          <div class="widget widget-medium">
-
-          </div>
-          <div class="widget widget-medium">
-            <div id="timer">
-              <div id="time">
-                <span id="minutes">25</span>
-                <span id="colon">:</span>
-                <span id="seconds">00</span>
+      <div class="desk-center">
+        <div class="countdown-app">
+          <div class="countdown">
+            <div class="time-part-wrapper">
+              <div class="time-part minutes tens">
+                <div class="digit-wrapper">
+                  <span class="digit">0</span>
+                  <span class="digit">5</span>
+                  <span class="digit">4</span>
+                  <span class="digit">3</span>
+                  <span class="digit">2</span>
+                  <span class="digit">1</span>
+                  <span class="digit">0</span>
+                </div>
               </div>
-              <div id="filler"></div>
+              <div class="time-part minutes ones">
+                <div class="digit-wrapper">
+                  <span class="digit">0</span>
+                  <span class="digit">9</span>
+                  <span class="digit">8</span>
+                  <span class="digit">7</span>
+                  <span class="digit">6</span>
+                  <span class="digit">5</span>
+                  <span class="digit">4</span>
+                  <span class="digit">3</span>
+                  <span class="digit">2</span>
+                  <span class="digit">1</span>
+                  <span class="digit">0</span>
+                </div>
+              </div>
             </div>
-            <div id="timer-buttons">
-              <div class="timer-button" id="start">Start</div>
-              <div class="timer-button" id="pause">Pause</div>
-              <div class="timer-button" id="reset">Reset</div>
+            <div class="time-part-wrapper">
+              <div class="time-part seconds tens">
+                <div class="digit-wrapper">
+                  <span class="digit">0</span>
+                  <span class="digit">5</span>
+                  <span class="digit">4</span>
+                  <span class="digit">3</span>
+                  <span class="digit">2</span>
+                  <span class="digit">1</span>
+                  <span class="digit">0</span>
+                </div>
+              </div>
+              <div class="time-part seconds ones">
+                <div class="digit-wrapper">
+                  <span class="digit">0</span>
+                  <span class="digit">9</span>
+                  <span class="digit">8</span>
+                  <span class="digit">7</span>
+                  <span class="digit">6</span>
+                  <span class="digit">5</span>
+                  <span class="digit">4</span>
+                  <span class="digit">3</span>
+                  <span class="digit">2</span>
+                  <span class="digit">1</span>
+                  <span class="digit">0</span>
+                </div>
+              </div>
+            </div>
+            <div class="time-part-wrapper">
+              <div class="time-part hundredths tens">
+                <div class="digit-wrapper">
+                  <span class="digit">0</span>
+                  <span class="digit">9</span>
+                  <span class="digit">8</span>
+                  <span class="digit">7</span>
+                  <span class="digit">6</span>
+                  <span class="digit">5</span>
+                  <span class="digit">4</span>
+                  <span class="digit">3</span>
+                  <span class="digit">2</span>
+                  <span class="digit">1</span>
+                  <span class="digit">0</span>
+                </div>
+              </div>
+              <div class="time-part hundredths ones">
+                <div class="digit-wrapper">
+                  <span class="digit">0</span>
+                  <span class="digit">9</span>
+                  <span class="digit">8</span>
+                  <span class="digit">7</span>
+                  <span class="digit">6</span>
+                  <span class="digit">5</span>
+                  <span class="digit">4</span>
+                  <span class="digit">3</span>
+                  <span class="digit">2</span>
+                  <span class="digit">1</span>
+                  <span class="digit">0</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <div class="desk-right-center">
-          <div class="todoApp">
-            <h1>T.A.S.K.s</h1>
-            <form id="form-1" onsubmit="addNewTodo()" class="todoApp-container">
-              <div class="todoList">
-                <h3 class="done">Completed</h3>
-              </div>
-              <input id="inputText" type="text" placeholder="Todo..." />
-            </form>
-          </div>
-        </div>
-        <div class="desk-right-bottom"></div>
       </div>
+      <div class="desk-bottom"></div>
     </div>
-    <div class="desk-center">
-      <div class="countdown-app">
-        <div class='countdown'>
-          <div class='time-part-wrapper'>
-            <div class='time-part minutes tens'>
-              <div class='digit-wrapper'>
-                <span class='digit'>0</span>
-                <span class='digit'>5</span>
-                <span class='digit'>4</span>
-                <span class='digit'>3</span>
-                <span class='digit'>2</span>
-                <span class='digit'>1</span>
-                <span class='digit'>0</span>
-              </div>
-            </div>
-            <div class='time-part minutes ones'>
-              <div class='digit-wrapper'>
-                <span class='digit'>0</span>
-                <span class='digit'>9</span>
-                <span class='digit'>8</span>
-                <span class='digit'>7</span>
-                <span class='digit'>6</span>
-                <span class='digit'>5</span>
-                <span class='digit'>4</span>
-                <span class='digit'>3</span>
-                <span class='digit'>2</span>
-                <span class='digit'>1</span>
-                <span class='digit'>0</span>
-              </div>
-            </div>
-          </div>
-          <div class='time-part-wrapper'>
-            <div class='time-part seconds tens'>
-              <div class='digit-wrapper'>
-                <span class='digit'>0</span>
-                <span class='digit'>5</span>
-                <span class='digit'>4</span>
-                <span class='digit'>3</span>
-                <span class='digit'>2</span>
-                <span class='digit'>1</span>
-                <span class='digit'>0</span>
-              </div>
-            </div>
-            <div class='time-part seconds ones'>
-              <div class='digit-wrapper'>
-                <span class='digit'>0</span>
-                <span class='digit'>9</span>
-                <span class='digit'>8</span>
-                <span class='digit'>7</span>
-                <span class='digit'>6</span>
-                <span class='digit'>5</span>
-                <span class='digit'>4</span>
-                <span class='digit'>3</span>
-                <span class='digit'>2</span>
-                <span class='digit'>1</span>
-                <span class='digit'>0</span>
-              </div>
-            </div>
-          </div>
-          <div class='time-part-wrapper'>
-            <div class='time-part hundredths tens'>
-              <div class='digit-wrapper'>
-                <span class='digit'>0</span>
-                <span class='digit'>9</span>
-                <span class='digit'>8</span>
-                <span class='digit'>7</span>
-                <span class='digit'>6</span>
-                <span class='digit'>5</span>
-                <span class='digit'>4</span>
-                <span class='digit'>3</span>
-                <span class='digit'>2</span>
-                <span class='digit'>1</span>
-                <span class='digit'>0</span>
-              </div>
-            </div>
-            <div class='time-part hundredths ones'>
-              <div class='digit-wrapper'>
-                <span class='digit'>0</span>
-                <span class='digit'>9</span>
-                <span class='digit'>8</span>
-                <span class='digit'>7</span>
-                <span class='digit'>6</span>
-                <span class='digit'>5</span>
-                <span class='digit'>4</span>
-                <span class='digit'>3</span>
-                <span class='digit'>2</span>
-                <span class='digit'>1</span>
-                <span class='digit'>0</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="desk-bottom"></div>
-  </div>
-  <script src="scirpt.js"></script>
-  <script src="todo.js"></script>
-</body>
-
+    <script src="scirpt.js"></script>
+    <script src="todo.js"></script>
+    <script src="scrum.js"></script>
+  </body>
 </html>

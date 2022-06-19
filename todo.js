@@ -26,6 +26,7 @@ function addNewTodo(todoItem) {
     }
     todo.classList.add("todo");
     todo.innerHTML = `
+          <div class="todo-space"></div>
           <p class="todo-item">${todoText}</p>
       `;
     todo.addEventListener("contextmenu", (e) => {
